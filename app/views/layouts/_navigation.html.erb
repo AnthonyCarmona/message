@@ -1,21 +1,22 @@
-<a class="item">
-          Chatroom
-        </a>
+        
+        
+        
+        <li class="item">
+          <%= link_to "Chatroom", root_path%>
+        </li>
         <a class="item">
           Messages
         </a>
         <div class="right menu">
-          <a class="item">
-          Log out
-        </a>
-        <a class="item">
-          Log in
-        </a>
-        <a class="item">
-          Signup
-        </a>
+        <%if logged_in? %>
+          
+          <%= link_to "logout", logout_path, method: :delete, class: "item" %>
         
+        <%else%>
+        <li class="item">
+          <%= link_to "Log in", login_path%>
+        </li>
+        
+        <%end%>
           </div>
-          <div class="item">
-              <div class="ui primary button">Sign Up</div>
-          </div>
+          
