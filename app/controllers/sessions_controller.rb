@@ -1,4 +1,5 @@
 class SessionsController < ApplicationController
+    before_action :logged_in_redirect, only: [:new, :create]
     def new 
 
     end
@@ -9,7 +10,7 @@ class SessionsController < ApplicationController
         if user && user.authenticate(params[:session][:password])
             session[:user_id]= user.id 
             flash[:success] = "you have successfully logged in"
-            redirect_to root_path
+            redirect_to chatroom_path
         else   
             flash.now[:error] = "There was something wrong with your login information"
             redirect_to login_path
@@ -21,4 +22,12 @@ class SessionsController < ApplicationController
         flash[:success]= "you have logged out"
         redirect_to root_path
     end    
+
+    private 
+    def logged_in_redirect
+        if logged_in?
+            flash[:error]= "you are already logged in"
+            redirect_to chatroom_path
+        end
+    end
 end
